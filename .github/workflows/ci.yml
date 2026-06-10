@@ -1,0 +1,33 @@
+name: Pipeline CI
+
+on:
+  push:
+    branches:
+      - main
+      
+  pull_request:
+    branches:
+      - main
+      
+jobs:
+  validar-api:
+  
+    runs-on: ubuntu-latest
+    
+    steps:
+    
+    - name: Checkout
+      uses: actions/Checkout@v4
+      
+    - name: Instalar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        
+    - name: Instalar dependências
+      run:
+        piip install -r requirements.txt
+        
+    - name: Validar importação da API
+      run: 
+        python -c "from app.main import app; print('API OK')"
