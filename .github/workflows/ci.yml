@@ -31,3 +31,7 @@ jobs:
     - name: Validar importação da API
       run: 
         python -c "from app.main import app; print('API OK')"
+        
+    - name: Build Docker
+      run: 
+        docker build -t api-tcc .
