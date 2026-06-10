@@ -26,7 +26,7 @@ jobs:
         
     - name: Instalar dependências
       run:
-        piip install -r requirements.txt
+        pip install -r requirements.txt
         
     - name: Validar importação da API
       run: 
