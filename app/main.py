@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from datetime import datetime
 
 app = FastAPI(
     title="API TCC DevOps",
@@ -26,3 +27,9 @@ def info():
 def status():
     return {"API": "Online",
             "Ambiente": "Desenvolvimento"}
+            
+@app.get("/metricas")
+def metricas():
+    return {"api": "tcc-devops",
+            "versao": "1.0.0",
+            "timestamp": datetime.now().isoformat()}
