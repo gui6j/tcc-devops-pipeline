@@ -175,30 +175,35 @@ Acesse o diretório do projeto:
 
 ```bash
 cd tcc-devops-pipeline
+```
 
-#Running with Docker
+# Running with Docker
 
 Construa a imagem Docker:
 
 ```bash
 docker build -t devsecops-pipeline .
+```
 
 Execute o container:
 
 ```bash
 docker run -d -p 8000:8000 --name devsecops-pipeline devsecops-pipeline
+```
 
 Verifique se o container está em execução:
 
 ```bash
 docker ps
+```
 
-#Running Locally
+# Running Locally
 
 Instale as dependências:
 
 ```bash
 pip install -r requirements.txt
+```
 
 Execute a aplicação:
 
