@@ -133,7 +133,7 @@ tcc-devops-pipeline
 ├── README.md
 ├── .gitignore
 └── .dockerignore
-
+```
 
 ## Directory Structure
 
@@ -164,9 +164,110 @@ Antes de iniciar, certifique-se de possuir os seguintes softwares instalados:
 | Visual Studio Code (opcional) | versão mais recente |
 
 
-## Clone the Repository
+# Clone the Repository
 
 Clone o repositório utilizando o comando abaixo:
 
 ```bash
 git clone https://github.com/gui6j/tcc-devops-pipeline.git
+```
+Acesse o diretório do projeto:
+
+```bash
+cd tcc-devops-pipeline
+
+#Running with Docker
+
+Construa a imagem Docker:
+
+```bash
+docker build -t devsecops-pipeline .
+
+Execute o container:
+
+```bash
+docker run -d -p 8000:8000 --name devsecops-pipeline devsecops-pipeline
+
+Verifique se o container está em execução:
+
+```bash
+docker ps
+
+#Running Locally
+
+Instale as dependências:
+
+```bash
+pip install -r requirements.txt
+
+Execute a aplicação:
+
+```bash
+uvicorn app.main:app --reload
+```
+
+
+# Verifying the Application
+
+Após iniciar a aplicação, acesse:
+
+| Recurso | URL |
+|-----------|-------------------|
+| API | http://localhost:8000 |
+| Swagger UI | http://localhost:8000/docs |
+| Health Check | http://localhost:8000/health |
+
+
+# API Documentation
+
+A aplicação disponibiliza uma API REST desenvolvida com FastAPI para validação da aplicação e monitoramento de seu estado de execução.
+
+Após iniciar a aplicação, a documentação interativa poderá ser acessada através do Swagger UI.
+
+| Recurso | URL |
+|----------|-----|
+| Swagger UI | http://localhost:8000/docs |
+| OpenAPI JSON | http://localhost:8000/openapi.json |
+
+
+## Available Endpoints
+
+| Método | Endpoint | Descrição |
+|---------|----------|-----------|
+| GET | `/` | Retorna a mensagem inicial da aplicação. |
+| GET | `/health` | Verifica se a aplicação está operacional. |
+| GET | `/status` | Retorna informações sobre o estado da aplicação. |
+| GET | `/info` | Exibe informações gerais da aplicação. |
+| GET | `/versao` | Retorna a versão atual da aplicação. |
+| GET | `/metricas` | Disponibiliza métricas básicas da aplicação para futuras integrações com ferramentas de monitoramento. |
+
+
+## Example Response
+
+### GET /health
+
+```json
+{
+    "status": "UP"
+}
+```
+
+
+## API Documentation Interface
+
+A FastAPI gera automaticamente uma documentação interativa baseada na especificação OpenAPI.
+
+Após executar a aplicação, basta acessar:
+
+```text
+http://localhost:8000/docs
+```
+
+A interface permite:
+
+- visualizar todos os endpoints disponíveis;
+- testar requisições diretamente pelo navegador;
+- consultar parâmetros e respostas;
+- validar rapidamente o funcionamento da API durante o desenvolvimento.
+
+
