@@ -28,7 +28,6 @@ Os principais objetivos deste projeto são:
 - Disponibilizar uma base para futuras implementações envolvendo segurança, infraestrutura como código e monitoramento.
 - Consolidar conhecimentos adquiridos durante o MBA em Engenharia de Software da USP.
 
-- ---
 
 # Architecture
 
@@ -43,9 +42,10 @@ Atualmente, a solução é composta pelos seguintes componentes:
 
 Essa estrutura estabelece uma base sólida para futuras implementações envolvendo análise automatizada de vulnerabilidades, Infraestrutura como Código (IaC), observabilidade e implantação em ambientes Cloud.
 
+
 ## Architecture Diagram
 
-
+```text
                      Developer
                          │
                          ▼
@@ -68,6 +68,7 @@ Essa estrutura estabelece uma base sólida para futuras implementações envolve
           ┌──────────────┼──────────────┐
           ▼              ▼              ▼
         /health       /status       /info
+```
 
 
 ## Continuous Integration Workflow
@@ -76,7 +77,7 @@ O fluxo atual da pipeline segue as seguintes etapas:
 
 1. O desenvolvedor realiza alterações no código.
 2. As alterações são enviadas para o repositório GitHub.
-3. O GitHub Actions inicia automaticamente a pipeline de Integração Continua.
+3. O GitHub Actions inicia automaticamente a pipeline de Integração Contínua.
 4. A aplicação é validada durante o processo de execução da pipeline.
 5. Em caso de sucesso, a aplicação permanece pronta para evolução e futuras etapas de entrega contínua.
 
