@@ -99,6 +99,10 @@ I["GET /status"]
 
 J["GET /info"]
 
+K["GET /versao"]
+
+L["GET /metricas"]
+
 A --> B
 B --> C
 C --> D
@@ -108,6 +112,8 @@ F --> G
 G --> H
 G --> I
 G --> J
+G --> K
+G --> L
 ```
 
 
