@@ -427,7 +427,7 @@ A proposta é expandir continuamente a solução com novas tecnologias relaciona
 
 **Guilherme Soares**
 
-Analista de Infraestrutura com mais de 14 anos de experiência em ambientes corporativos, atuando com administração de servidores Windows e Linux, Virtualização, Redes, Banco de Dados SQL Server, Active Directory, Automação e Sustentação de Ambientes Críticos.
+Analista de Infraestrutura com mais de 14 anos de experiência em ambientes corporativos, atuando com administração de servidores Windows e Linux, virtualização, redes, banco de dados SQL Server, Active Directory, automação e sustentação de ambientes críticos.
 
 Atualmente cursando MBA em Engenharia de Software pela Universidade de São Paulo (USP) aplicando práticas modernas de automação, CI/CD e observabilidade ao meu dia a dia em infraestrutura, unindo a solidez da experiência em ambientes corporativos com ferramentas atuais de mercado.
 
