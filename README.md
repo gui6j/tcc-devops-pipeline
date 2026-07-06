@@ -81,3 +81,92 @@ O fluxo atual da pipeline segue as seguintes etapas:
 4. A aplicação é validada durante o processo de execução da pipeline.
 5. Em caso de sucesso, a aplicação permanece pronta para evolução e futuras etapas de entrega contínua.
 
+
+# Technologies
+
+O projeto foi desenvolvido utilizando tecnologias amplamente adotadas em ambientes modernos de desenvolvimento, infraestrutura e automação.
+
+| Tecnologia | Finalidade |
+|------------|------------|
+| Python | Linguagem utilizada no desenvolvimento da aplicação |
+| FastAPI | Framework para construção da API REST |
+| Docker | Containerização da aplicação |
+| GitHub Actions | Automação da pipeline de Integração Contínua (CI) |
+| Git | Controle de versão do projeto |
+
+
+# Features
+
+Atualmente o projeto disponibiliza as seguintes funcionalidades:
+
+- Desenvolvimento de uma API REST utilizando FastAPI;
+- Containerização da aplicação com Docker;
+- Pipeline automatizada de Integração Contínua (CI) utilizando GitHub Actions;
+- Validação automática da aplicação durante o processo de integração;
+- Endpoints para monitoramento e verificação da aplicação;
+- Estrutura preparada para evolução contínua da solução.
+
+As funcionalidades previstas para as próximas etapas estão descritas na seção **Roadmap**.
+
+
+# Repository Structure
+
+A organização do projeto foi definida para facilitar sua manutenção e evolução.
+
+```text
+tcc-devops-pipeline
+│
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+│
+├── app/
+│   └── main.py
+│
+├── docs/
+│   ├── evidencias/
+│   ├── referencias/
+│   └── resultados-preliminares.md
+│
+├── Dockerfile
+├── requirements.txt
+├── README.md
+├── .gitignore
+└── .dockerignore
+
+
+## Directory Structure
+
+| Diretório | Descrição |
+|------------|-----------|
+| `.github/workflows` | Pipeline de Integração Contínua |
+| `app` | Código-fonte da aplicação |
+| `docs` | Documentação técnica e evidências |
+| `Dockerfile` | Definição da imagem Docker |
+| `requirements.txt` | Dependências da aplicação |
+| `README.md` | Documentação principal |
+
+
+# Getting Started
+
+As instruções abaixo descrevem como configurar e executar o projeto em um ambiente local.
+
+
+## Prerequisites
+
+Antes de iniciar, certifique-se de possuir os seguintes softwares instalados:
+
+| Software | Versão recomendada |
+|-----------|-------------------|
+| Git | 2.x ou superior |
+| Python | 3.13 ou superior |
+| Docker Desktop | versão mais recente |
+| Visual Studio Code (opcional) | versão mais recente |
+
+
+## Clone the Repository
+
+Clone o repositório utilizando o comando abaixo:
+
+```bash
+git clone https://github.com/gui6j/tcc-devops-pipeline.git
