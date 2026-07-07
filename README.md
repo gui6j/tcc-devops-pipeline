@@ -16,7 +16,7 @@ O projeto teve origem como Trabalho de Conclusão do MBA em Engenharia de Softwa
 | **Framework** | FastAPI |
 | **Containerização** | Docker |
 | **Integração Contínua** | GitHub Actions |
-| **Status** | Em desenvolvimento |
+| **Status** | CI e containerização implementados. Segurança, IaC e Observabilidade em desenvolvimento |
 | **Instituição** | Universidade de São Paulo (USP) |
 
 
@@ -44,7 +44,7 @@ O projeto tem como objetivo demonstrar a implementação de uma pipeline automat
 
 A proposta é disponibilizar uma estrutura simples, organizada e reproduzível, permitindo a evolução gradual da solução com novas funcionalidades relacionadas à integração contínua, segurança, infraestrutura como código e observabilidade.
 
-Além de atender aos requisitos acadêmicos do trabalho de conclusão de curso, o projeto também serve como portfólio técnico para aplicação prática de conceitos utilizados em ambientes DevOps.
+Além do valor acadêmico, o projeto também serve como portfólio técnico para aplicação prática de conceitos utilizados em ambientes DevOps.
 
 
 ## Objetivos
@@ -57,14 +57,13 @@ Os principais objetivos deste projeto são:
 - Padronizar o processo de integração contínua.
 - Aplicar conceitos fundamentais de DevSecOps em uma aplicação real.
 - Disponibilizar uma base para futuras implementações envolvendo segurança, infraestrutura como código e monitoramento.
-- Consolidar conhecimentos adquiridos durante o MBA em Engenharia de Software da USP.
 
 
 ## Arquitetura
 
 A arquitetura foi projetada para demonstrar uma pipeline de Integração Contínua (CI) simples, modular e reproduzível, utilizando ferramentas amplamente empregadas em ambientes corporativos.
 
-Atualmente, a solução é composta pelos seguintes componentes:
+A solução é composta pelos seguintes componentes:
 
 - API REST desenvolvida com FastAPI;
 - Containerização da aplicação utilizando Docker;
@@ -79,41 +78,40 @@ Essa estrutura estabelece uma base sólida para futuras implementações envolve
 ```mermaid
 flowchart TD
 
-A[Developer]
+    A[Developer]
+    B[GitHub Repository]
+    C[GitHub Actions CI]
 
-B[GitHub Repository]
+    D[Source Code Validation]
+    E[Docker Image Build]
 
-C[GitHub Actions CI]
+    F[FastAPI Application]
+    G[REST API]
 
-D[Application Validation]
+    H["GET /"]
+    I["GET /health"]
+    J["GET /status"]
+    K["GET /info"]
+    L["GET /versao"]
+    M["GET /metricas"]
 
-E[Docker Build]
+    A --> B
+    B --> C
 
-F[FastAPI Application]
+    C --> D
+    C --> E
 
-G[REST API]
+    D --> F
+    E --> F
 
-H["GET /health"]
+    F --> G
 
-I["GET /status"]
-
-J["GET /info"]
-
-K["GET /versao"]
-
-L["GET /metricas"]
-
-A --> B
-B --> C
-C --> D
-D --> E
-E --> F
-F --> G
-G --> H
-G --> I
-G --> J
-G --> K
-G --> L
+    G --> H
+    G --> I
+    G --> J
+    G --> K
+    G --> L
+    G --> M
 ```
 
 
@@ -123,13 +121,17 @@ A aplicação utiliza uma pipeline de Integração Contínua (CI) para automatiz
 
 Fluxo atual:
 
-- inicialização automática após um **push** ou **pull request**;
-- preparação do ambiente de execução;
-- instalação das dependências;
-- validação da aplicação;
-- conclusão da execução da pipeline.
+- O desenvolvedor realiza alterações no código.
+- As alterações são enviadas para o repositório GitHub.
+- O GitHub Actions inicia automaticamente a pipeline de Integração Contínua.
+- A aplicação é validada durante o processo de execução da pipeline.
+- Em caso de sucesso, a aplicação permanece pronta para evolução e futuras etapas de entrega contínua.
 
 Essa automação reduz atividades manuais, aumenta a confiabilidade do processo de desenvolvimento e estabelece uma base para futuras implementações relacionadas à Entrega Contínua (CD) e às práticas de DevSecOps.
+
+> *Evidência de uma execução bem-sucedida da pipeline.*
+
+![GitHub Actions Workflow](docs/evidencias/github-actions-workflow.png)
 
 
 ## Tecnologias
@@ -147,7 +149,7 @@ O projeto foi desenvolvido utilizando tecnologias amplamente adotadas em ambient
 
 ## Funcionalidades
 
-Atualmente o projeto disponibiliza as seguintes funcionalidades:
+O projeto disponibiliza as seguintes funcionalidades:
 
 - Desenvolvimento de uma API REST utilizando FastAPI;
 - Containerização da aplicação com Docker;
@@ -156,7 +158,7 @@ Atualmente o projeto disponibiliza as seguintes funcionalidades:
 - Endpoints para monitoramento e verificação da aplicação;
 - Estrutura preparada para evolução contínua da solução.
 
-As funcionalidades previstas para as próximas etapas estão descritas na seção **Roadmap**.
+As funcionalidades previstas para as próximas etapas estão descritas na seção [Roadmap](#roadmap).
 
 
 ## Estrutura do Repositório
@@ -194,7 +196,7 @@ tcc-devops-pipeline
 | `docs` | Documentação técnica e evidências |
 | `Dockerfile` | Definição da imagem Docker |
 | `requirements.txt` | Dependências da aplicação |
-| `README.md` | Documentação principal |
+| `README.md` | Documentação principal do projeto |
 
 
 ## Primeiros Passos
@@ -202,7 +204,7 @@ tcc-devops-pipeline
 As instruções abaixo descrevem como configurar e executar o projeto em um ambiente local.
 
 
-### Prerequisitos
+### Pré-requisitos
 
 Antes de iniciar, certifique-se de possuir os seguintes softwares instalados:
 
@@ -297,10 +299,8 @@ Após iniciar a aplicação, a documentação interativa poderá ser acessada at
 | GET | `/metricas` | Disponibiliza métricas básicas da aplicação para futuras integrações com ferramentas de monitoramento. |
 
 
-### Resposta de Exemplo
-
-### GET /health
-
+### Exemplo de Resposta: GET /health
+ 
 ```json
 {
     "status": "UP"
@@ -325,27 +325,9 @@ A interface permite:
 - consultar parâmetros e respostas;
 - validar rapidamente o funcionamento da API durante o desenvolvimento.
 
-
-## Pipeline de Integração Contínua
-
-O projeto utiliza uma pipeline de Integração Contínua (CI) implementada com GitHub Actions para automatizar a validação da aplicação sempre que alterações são enviadas ao repositório.
-
-O fluxo atual da pipeline contempla:
-
-- Inicialização automática após um `push` ou `pull request`;
-- Configuração do ambiente de execução;
-- Instalação das dependências do projeto;
-- Validação da aplicação;
-- Finalização da execução da pipeline.
-
-Essa automação garante maior confiabilidade durante o desenvolvimento e estabelece uma base para futuras evoluções relacionadas à entrega contínua (CD) e práticas de DevSecOps.
-
-
-### Workflow do GitHub Actions
-
-> *Imagem da execução da pipeline.*
-
-![GitHub Actions Workflow](docs/evidencias/github-actions-workflow.png)
+> *Interface interativa gerada automaticamente pela FastAPI, em execução.*
+ 
+![Swagger UI](docs/evidencias/fastapi-swagger-ui.png)
 
 
 ## Docker
@@ -354,60 +336,45 @@ A aplicação foi containerizada utilizando Docker, permitindo que sua execuçã
 
 A imagem Docker é construída a partir do `Dockerfile` disponível na raiz do projeto.
 
-Após a construção da imagem, a aplicação pode ser executada em um container utilizando os comandos apresentados anteriormente na seção **Getting Started**.
+Após a construção da imagem, a aplicação pode ser executada em um container utilizando os comandos apresentados anteriormente na seção **Primeiros Passos**.
 
 
 ### Container em execução
 
 > *Container da aplicação em execução.*
-
+ 
 ![Docker Container Running](docs/evidencias/docker-container-running.png)
-
-
-### Documentação da Aplicação
-
-A FastAPI disponibiliza automaticamente uma interface Swagger para documentação e testes da API.
-
-Essa interface permite validar rapidamente os endpoints implementados durante o desenvolvimento.
-
-
-### Interface do Swagger UI
-
-> *Interface interativa gerada automaticamente pela FastAPI.*
-
-![Swagger UI](docs/evidencias/fastapi-swagger-ui.png)
 
 
 ## Roadmap
 
 O projeto continuará evoluindo como laboratório prático para aplicação de conceitos relacionados à automação, DevSecOps e Infraestrutura como Código.
 
-### Próximas Implementações
 
-### Pipeline
+#### Pipeline
 
-- [ ] Expansão da pipeline para práticas de Continuous Delivery (CD).
+- [ ] Expansão da pipeline para práticas de Entrega Contínua (CD).
 - [ ] Inclusão de novas etapas automatizadas de validação.
 - [ ] Evolução para uma pipeline DevSecOps completa.
 
-### Segurança
+#### Segurança
 
 - [ ] Integração com Trivy para análise automática de vulnerabilidades.
 - [ ] Geração de relatórios de segurança durante a pipeline.
 - [ ] Validação de dependências da aplicação.
 
-### Containers
+#### Containers
 
 - [ ] Publicação automática de imagens Docker.
 - [ ] Otimização da imagem utilizando multi-stage build.
 
-### Infraestrutura
+#### Infraestrutura
 
 - [ ] Provisionamento de infraestrutura utilizando Terraform.
 - [ ] Gerenciamento de configurações com Ansible.
 - [ ] Estudos de implantação em ambiente AWS.
 
-### Observabilidade
+#### Observabilidade
 
 - [ ] Exposição de métricas no padrão Prometheus.
 - [ ] Integração com Grafana para criação de dashboards.
@@ -416,11 +383,9 @@ O projeto continuará evoluindo como laboratório prático para aplicação de c
 
 ## Sobre o Projeto
 
-Este projeto teve origem como Trabalho de Conclusão do MBA em Engenharia de Software da Universidade de São Paulo (USP) e continua evoluindo como um laboratório prático para estudos de automação, DevSecOps e infraestrutura moderna.
+Projeto desenvolvido como Trabalho de Conclusão do MBA em Engenharia de Software da Universidade de São Paulo (USP), estruturado também como laboratório prático para experimentação contínua com novas tecnologias e boas práticas de engenharia de software.
 
-Além de atender aos objetivos acadêmicos, o repositório foi estruturado para aplicar boas práticas de engenharia de software, documentação técnica e automação, servindo também como portfólio para demonstrar conhecimentos adquiridos durante o MBA e estudos complementares.
-
-A proposta é expandir continuamente a solução com novas tecnologias relacionadas à Infraestrutura como Código, Cloud Computing, segurança e observabilidade.
+A proposta é utilizar este repositório como base para experimentação, automação e consolidação de conhecimentos relacionados à Integração Contínua e Entrega Contínua (CI/CD), DevSecOps, Infraestrutura como Código e observabilidade.
 
 
 ## Autor
@@ -429,22 +394,14 @@ A proposta é expandir continuamente a solução com novas tecnologias relaciona
 
 Analista de Infraestrutura com mais de 14 anos de experiência em ambientes corporativos, atuando com administração de servidores Windows e Linux, virtualização, redes, banco de dados SQL Server, Active Directory, automação e sustentação de ambientes críticos.
 
-Atualmente cursando MBA em Engenharia de Software pela Universidade de São Paulo (USP) aplicando práticas modernas de automação, CI/CD e observabilidade ao meu dia a dia em infraestrutura, unindo a solidez da experiência em ambientes corporativos com ferramentas atuais de mercado.
+Cursando MBA em Engenharia de Software pela Universidade de São Paulo (USP) aplicando práticas modernas de automação, CI/CD e observabilidade ao meu dia a dia em infraestrutura, unindo a solidez da experiência em ambientes corporativos com ferramentas atuais de mercado.
 
 - LinkedIn: https://linkedin.com/in/guilhermesantos-ti
 - GitHub: https://github.com/gui6j
 
-### Áreas de Interesse
-
-- DevOps
-- Cloud Computing
-- Platform Engineering
-- Automação de Infraestrutura
-- Infraestrutura Microsoft e Linux
-
 
 ## Licença
 
-Este projeto possui finalidade Acadêmica e Educacional.
-
-Sua utilização para fins de estudo é livre, respeitando a autoria e a referência ao projeto original.
+Este projeto possui finalidade acadêmica e educacional. Sua utilização para fins de estudo é livre, respeitando a autoria e a referência ao projeto original.
+ 
+Além desta nota, o repositório também inclui um arquivo `LICENSE` (MIT) na raiz do projeto.
