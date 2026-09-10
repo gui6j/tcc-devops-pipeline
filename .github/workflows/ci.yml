@@ -16,11 +16,11 @@ jobs:
     
     steps:
     
-    - name: Checkout
-      uses: actions/Checkout@v4
+    - name: checkout
+      uses: actions/Checkout@v5
       
     - name: Instalar Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.12'
         
